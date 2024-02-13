@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //Character Movement
+    //Movement
     [SerializeField] private float speed = 5f;
     [SerializeField] private float sensitivity = 2f;
 
@@ -12,9 +12,12 @@ public class PlayerMovement : MonoBehaviour
     private Camera playerCamera;
     private Vector2 rotation = Vector2.zero;
 
-    //Objects needed for Shooting
+    //Shoot
     [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform firePoint;
+    public Transform firePoint;
+    public float shootForce = 10f;
+    public float upForce = 1f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -42,17 +45,31 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = (rightMovement + forwardMovement).normalized;
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
 
-        //Shoot Function
+        // Shooting
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
     }
 
-    void Shoot()
+    public void Shoot()
     {
-        // Instantiate projectile at the fire point position and rotation
-        Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        // Add shooting logic here (e.g., apply force to the bullet, play shooting sound, etc.)
+        // Instantiate arrow prefab at the fire point position and rotation
+        GameObject arrow = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            // Calculate throw direction
+            Vector3 throwDirection = (hit.point - arrow.transform.position).normalized * shootForce;
+
+            // Add extra upward force
+            throwDirection += Vector3.up * upForce;
+
+            // Apply force to the arrow
+            arrow.GetComponent<Rigidbody>().velocity = throwDirection;
+        }
     }
 }
