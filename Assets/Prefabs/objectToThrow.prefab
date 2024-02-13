@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9200264958329948331}
   - component: {fileID: 7416118336703367177}
   - component: {fileID: 6275577510360676625}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4880002999830189115}
   - component: {fileID: 7110055588206536400}
   - component: {fileID: 6908143895094886655}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,9 +225,9 @@ GameObject:
   - component: {fileID: 985367890834756730}
   - component: {fileID: 1256818052408375259}
   - component: {fileID: 8042671034433122412}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: objectToThrow
-  m_TagString: Untagged
+  m_TagString: Star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,8 +259,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684653543081038209}
   serializedVersion: 4
-  m_Mass: 10
-  m_Drag: 5
+  m_Mass: 1
+  m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 2368210726630037457}
   - component: {fileID: 4251611928669874974}
   - component: {fileID: 1646493827187953498}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 6842620966436612005}
   - component: {fileID: 7079122154857069535}
   - component: {fileID: 7188831203601142637}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

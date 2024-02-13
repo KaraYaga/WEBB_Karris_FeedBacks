@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class BlackHole : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        // Check if the colliding GameObject has the "Star" tag
+        if (other.CompareTag("Star"))
+        {
+            Destroy(); // Destroy the BlackHole object
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Destroy()
     {
-        
+        Destroy(gameObject);
     }
 }
