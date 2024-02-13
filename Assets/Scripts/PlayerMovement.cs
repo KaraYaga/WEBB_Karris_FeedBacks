@@ -4,28 +4,39 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //Movement
+    [Header ("Movement")]
     [SerializeField] private float speed = 5f;
     [SerializeField] private float sensitivity = 2f;
-
     private Rigidbody rb;
     private Camera playerCamera;
     private Vector2 rotation = Vector2.zero;
 
-    //Shoot
-    [SerializeField] private GameObject projectilePrefab;
-    public Transform firePoint;
-    public float shootForce = 10f;
-    public float upForce = 1f;
+    [Header("References")]
+    public Transform cam;
+    public Transform attackPoint;
+    public GameObject objectToThrow;
 
-    void Start()
+    [Header("Throwing")]
+    public KeyCode throwkey = KeyCode.Mouse0;
+    public float throwForce;
+    public float throwUpwardForce;
+    public float throwCooldown;
+
+    bool readyToThrow;
+
+    private void Start()
     {
+        //For Movement
         rb = GetComponent<Rigidbody>();
         playerCamera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        //For Shooting
+        readyToThrow = true;
     }
 
+    //PLAYER MOVEMENT
     void Update()
     {
         // Rotation based on mouse movement
@@ -46,30 +57,33 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
 
         // Shooting
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(throwkey) && readyToThrow)
         {
-            Shoot();
+            Throw();
         }
     }
 
-    public void Shoot()
+    public void Throw()
     {
-        // Instantiate arrow prefab at the fire point position and rotation
-        GameObject arrow = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        readyToThrow = false;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        //Instantiate object to throw
+        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-        {
-            // Calculate throw direction
-            Vector3 throwDirection = (hit.point - arrow.transform.position).normalized * shootForce;
+        //Get Rigidbody Component
+        Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
 
-            // Add extra upward force
-            throwDirection += Vector3.up * upForce;
+        //Add Force
+        Vector3 forceToAdd = cam.transform.forward * throwForce + transform.up * throwUpwardForce;
 
-            // Apply force to the arrow
-            arrow.GetComponent<Rigidbody>().velocity = throwDirection;
-        }
+        projectileRB.AddForce(forceToAdd, ForceMode.Impulse);
+
+        //Implement throwCooldown
+        Invoke(nameof(ResetThrow), throwCooldown);
+    }
+
+    private void ResetThrow()
+    {
+        readyToThrow = true;
     }
 }
