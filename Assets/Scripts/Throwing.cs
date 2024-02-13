@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Throwing : MonoBehaviour
 {
-  
     [Header("References")]
     public Transform cam;
     public Transform attackPoint;
@@ -16,62 +15,39 @@ public class Throwing : MonoBehaviour
     public float throwUpwardForce;
     public float throwCooldown;
 
-    bool readyToThrow;
+    private bool readyToThrow = true;
 
-    //Ready to Throw
-    private void Start()
+    private void Update()
     {
-  
-        readyToThrow = true;
-    }
-   
-    //THROWING
-    void Update()
-    { 
         if (Input.GetKeyDown(throwkey) && readyToThrow)
         {
             Throw();
         }
     }
 
-    public void Throw()
+    private void Throw()
     {
         readyToThrow = false;
 
         //Instantiate object to throw
         GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
 
-        //Get Rigidbody Component
+        //Add Rigidbody Component if not already attached
         Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
+        if (projectileRB == null)
+            projectileRB = projectile.AddComponent<Rigidbody>();
 
         //Add Force
-        Vector3 forceToAdd = cam.transform.forward * throwForce + transform.up * throwUpwardForce;
-
+        Vector3 forceToAdd = cam.forward * throwForce + cam.up * throwUpwardForce;
         projectileRB.AddForce(forceToAdd, ForceMode.Impulse);
 
         //Implement throwCooldown
-        Invoke(nameof(ResetThrow), throwCooldown);
+        StartCoroutine(ResetThrow());
     }
 
-    //Collide with BlackHole
-    private void OnTriggerEnter(Collider other)
+    private IEnumerator ResetThrow()
     {
-        // Check if the colliding GameObject has the "BlackHole" tag
-        if (other.CompareTag("BlackHole"))
-        {
-            Destroy(); // Destroy the Star object
-        }
-    }
-
-    //Reset Throw
-    private void ResetThrow()
-    {
+        yield return new WaitForSeconds(throwCooldown);
         readyToThrow = true;
-    }
-
-    //Destroy Star
-    public void Destroy()
-    {
-        Destroy(gameObject);
     }
 }

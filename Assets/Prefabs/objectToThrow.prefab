@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 985367890834756730}
   - component: {fileID: 1256818052408375259}
   - component: {fileID: 8042671034433122412}
+  - component: {fileID: 3025039569007022800}
   m_Layer: 9
   m_Name: objectToThrow
   m_TagString: Star
@@ -285,7 +286,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684653543081038209}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 2ede9cb8892c37e41b86b3c79d9078c2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -301,6 +302,18 @@ CapsuleCollider:
   m_Height: 3.0859163
   m_Direction: 1
   m_Center: {x: -0.046031665, y: 0.25589225, z: 0.103884056}
+--- !u!114 &3025039569007022800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684653543081038209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3536ea68077042468fdfafcdc82aba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2556866452026361550
 GameObject:
   m_ObjectHideFlags: 0

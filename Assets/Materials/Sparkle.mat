@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Star
+  m_Name: Sparkle
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -20,7 +20,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _ParallaxMap
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -79,6 +79,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 0.29803923, a: 1}
-    - _EmissionColor: {r: 0.57261664, g: 0.550347, b: 0.29981342, a: 1}
+    - _Color: {r: 0.9622642, g: 0.94957066, b: 0.63999647, a: 1}
+    - _EmissionColor: {r: 0.8867924, g: 0.88418514, b: 0.8240477, a: 1}
   m_BuildTextureStacks: []
