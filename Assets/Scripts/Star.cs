@@ -75,8 +75,6 @@ public class Star : MonoBehaviour
             {
                 Instantiate(groundCollisionParticles, transform.position, Quaternion.identity);
             }
-
-            Destroy(gameObject); // Destroy the star object
         }
     }
 }
