@@ -22,15 +22,22 @@ public class Star : MonoBehaviour
         StartCoroutine(ChangeMaterials());
     }
 
-    // Destroy on Collision with black hole
     private void OnTriggerEnter(Collider other)
     {
+        // Destroy on Collision with black hole
         if (other.CompareTag("BlackHole"))
         {
             hasCollided = true;
             DestroyStar();
         }
+        //Effect on Collision with Aura
+        if (other.CompareTag("Aura"))
+        {
+            hasCollided = true;
+            DestroyStar();
+        }
     }
+
 
     // Destroy if no collision after Delay
     private IEnumerator DestroyIfNoCollision()
@@ -43,7 +50,7 @@ public class Star : MonoBehaviour
             DestroyStar();
         }
     }
-
+    //Destroy function
     private void DestroyStar()
     {
         Destroy(gameObject);

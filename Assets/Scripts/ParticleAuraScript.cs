@@ -8,25 +8,17 @@ public class ParticleAuraScript : MonoBehaviour
     {
         StartCoroutine(DestroyAfterTime());
     }
+    //Destroy after a certain amount of time
     private IEnumerator DestroyAfterTime()
     {
         yield return new WaitForSeconds(5f); // Wait for 7 seconds
         DestroyAura();
         
     }
-
+    //Destroy function
     private void DestroyAura()
     {
         Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-
-            DestroyAura();
-        }
     }
 
 }

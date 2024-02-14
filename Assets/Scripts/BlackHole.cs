@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class BlackHole : MonoBehaviour
 {
+    //Explosion Shake Perameters
     public float shakeDuration = 2f; // Duration of the shake
     public float shakeMagnitude = 0.1f; // Magnitude of the shake
     public float shakeSpeed = 1.0f; // Speed of the shake
-    public ParticleSystem destructionParticles; // Reference to the destruction particle system
+    public ParticleSystem destructionParticles; // Destruction particle system
 
     private bool isDestroyed = false;
 
+    //Star Hit
     private void OnTriggerEnter(Collider other)
     {
         // Check if the colliding GameObject has the "Star" tag and if the black hole hasn't been destroyed yet
@@ -20,7 +22,7 @@ public class BlackHole : MonoBehaviour
             StartCoroutine(ShakeAndDestroy()); // Shake the BlackHole object and destroy it after shaking
         }
     }
-
+    //SHAKE
     private IEnumerator ShakeAndDestroy()
     {
         // Shake the black hole

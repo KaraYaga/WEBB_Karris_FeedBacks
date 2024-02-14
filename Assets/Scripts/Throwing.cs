@@ -17,6 +17,7 @@ public class Throwing : MonoBehaviour
 
     private bool readyToThrow = true;
 
+    //Ready to Throw
     private void Update()
     {
         if (Input.GetKeyDown(throwkey) && readyToThrow)
@@ -44,7 +45,7 @@ public class Throwing : MonoBehaviour
         //Implement throwCooldown
         StartCoroutine(ResetThrow());
     }
-
+    //Throw Cooldown
     private IEnumerator ResetThrow()
     {
         yield return new WaitForSeconds(throwCooldown);
