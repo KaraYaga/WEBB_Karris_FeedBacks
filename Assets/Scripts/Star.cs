@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Star : MonoBehaviour
 {
+    //Collision Tracker
     private bool hasCollided = false;
+    //Material Change
     private Renderer starRenderer; // Reference to the renderer component
     private Color startColor;
     public Material[] materials; // Array of materials for color cycling
     public float changeInterval = 1.0f; // Interval between material changes
+    //Particle System Effects
     public GameObject groundCollisionParticles; // Reference to the ground collision particle system prefab
+    public GameObject secondStar; //Instantiate another star
+    //Particle Second Star Cooldown
+    private bool auraCooldown = false; // Flag to track cooldown for aura collision
+    public float auraCooldownDuration = 2.0f; // Duration of the cooldown period for aura collision
 
     // Check for collision
     private void Start()
@@ -31,13 +38,27 @@ public class Star : MonoBehaviour
             DestroyStar();
         }
         //Effect on Collision with Aura
-        if (other.CompareTag("Aura"))
+        if (other.CompareTag("Aura") && !auraCooldown && other.gameObject.GetInstanceID() != gameObject.GetInstanceID())
         {
-            hasCollided = true;
-            DestroyStar();
+            //InstantiateSecondStar();
         }
+
     }
 
+    // Instantiate the second star and start cooldown
+    private void InstantiateSecondStar()
+    {
+        Instantiate(secondStar, transform.position, Quaternion.identity);
+        StartCoroutine(AuraCooldown());
+    }
+
+    // Cooldown for aura collision
+    private IEnumerator AuraCooldown()
+    {
+        auraCooldown = true;
+        yield return new WaitForSeconds(auraCooldownDuration);
+        auraCooldown = false;
+    }
 
     // Destroy if no collision after Delay
     private IEnumerator DestroyIfNoCollision()
