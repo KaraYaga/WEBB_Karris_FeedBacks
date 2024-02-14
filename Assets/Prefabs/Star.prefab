@@ -19591,7 +19591,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 8622a84780d985e448a1c78d61bce1bd, type: 2}
   - {fileID: 2100000, guid: 75d258245af4e574bb8a38b8dca19a98, type: 2}
   changeInterval: 1
-  groundCollisionParticles: {fileID: 4693122219843528750, guid: 71b2b579145c2ea4597d1e1c33f3a12f, type: 3}
+  groundCollisionParticles: {fileID: 6986154902055844388, guid: 8bdad2c9f9b6ae3428ef8de62a84e5c9, type: 3}
 --- !u!1 &4877973404989459390
 GameObject:
   m_ObjectHideFlags: 0

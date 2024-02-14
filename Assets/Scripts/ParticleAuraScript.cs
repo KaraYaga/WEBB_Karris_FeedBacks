@@ -10,7 +10,7 @@ public class ParticleAuraScript : MonoBehaviour
     }
     private IEnumerator DestroyAfterTime()
     {
-        yield return new WaitForSeconds(7f); // Wait for 7 seconds
+        yield return new WaitForSeconds(5f); // Wait for 7 seconds
         DestroyAura();
         
     }
@@ -18,6 +18,15 @@ public class ParticleAuraScript : MonoBehaviour
     private void DestroyAura()
     {
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+
+            DestroyAura();
+        }
     }
 
 }
