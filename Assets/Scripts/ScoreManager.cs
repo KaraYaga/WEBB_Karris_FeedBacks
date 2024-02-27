@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +18,8 @@ public class ScoreManager : MonoBehaviour
     private Vector3 originalScorePos;
     private Vector3 originalPopupScorePos;
 
-    private Queue<int> popupScores = new Queue<int>();
+    private Queue<Tuple<int, Vector3>> popupScores = new Queue<Tuple<int, Vector3>>();
     private bool isShowingPopup = false;
-
 
     private void Start()
     {
@@ -33,15 +33,17 @@ public class ScoreManager : MonoBehaviour
     {
         if (!isShowingPopup && popupScores.Count > 0)
         {
-            int score = popupScores.Dequeue();
+            var scoreTuple = popupScores.Dequeue();
+            int score = scoreTuple.Item1;
+            Vector3 blackHoleWorldPos = scoreTuple.Item2;
             totalScore += score; // Add the popup score to the total score
-            ShowPopupScore(score);
+            ShowPopupScore(score, blackHoleWorldPos);
         }
     }
 
-    public void AddPopupScore(int score)
+    public void AddPopupScore(int score, Vector3 blackHoleWorldPos)
     {
-        popupScores.Enqueue(score);
+        popupScores.Enqueue(new Tuple<int, Vector3>(score, blackHoleWorldPos));
     }
 
     IEnumerator ShakePopupScoreText()
@@ -51,8 +53,8 @@ public class ScoreManager : MonoBehaviour
 
         while (elapsed < shakeDuration)
         {
-            float x = originalPopupScorePos.x + Random.Range(-1f, 1f) * shakeMagnitude;
-            float y = originalPopupScorePos.y + Random.Range(-1f, 1f) * shakeMagnitude;
+            float x = originalPopupScorePos.x + UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude;
+            float y = originalPopupScorePos.y + UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude;
 
             popupScoreText.transform.localPosition = new Vector3(x, y, originalPopupScorePos.z);
 
@@ -68,11 +70,11 @@ public class ScoreManager : MonoBehaviour
     void ChangePopupScoreColorRandomly()
     {
         // Generate random hue value in the range [0, 1]
-        float randomHue = Random.value;
+        float randomHue = UnityEngine.Random.value;
 
         // Set saturation and value to high values to create neon colors
-        float saturation = Random.Range(0.8f, 1.0f); // Adjust saturation range as needed
-        float value = Random.Range(0.8f, 1.0f); // Adjust value range as needed
+        float saturation = UnityEngine.Random.Range(0.8f, 1.0f); // Adjust saturation range as needed
+        float value = UnityEngine.Random.Range(0.8f, 1.0f); // Adjust value range as needed
 
         // Convert HSV color to RGB
         Color randomColor = Color.HSVToRGB(randomHue, saturation, value);
@@ -87,21 +89,21 @@ public class ScoreManager : MonoBehaviour
         // Instantiate the aura particle system prefab when updating the score text
     }
 
-    void ShowPopupScore(int score)
+    void ShowPopupScore(int score, Vector3 blackHoleWorldPos)
     {
         popupScoreText.text = score.ToString(); // Set the popup score text to the generated score
         StartCoroutine(ShakePopupScoreText());
         ChangePopupScoreColorRandomly();
-        ShowPopupScoreObject();
+        ShowPopupScoreObject(blackHoleWorldPos);
         UpdateScoreText(); // Update the total score text
     }
 
-    void ShowPopupScoreObject()
+    void ShowPopupScoreObject(Vector3 blackHoleWorldPos)
     {
         popupScoreText.gameObject.SetActive(true);
 
-        // Get the screen position of the black hole
-        Vector3 screenPos = mainCamera.WorldToScreenPoint(BlackHolePosition());
+        // Convert black hole world position to screen coordinates
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(blackHoleWorldPos);
 
         // Set the position of the popup score text directly
         popupScoreText.rectTransform.position = screenPos + new Vector3(0f, popupDistance, 0f);

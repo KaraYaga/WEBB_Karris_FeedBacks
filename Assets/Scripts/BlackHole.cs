@@ -24,6 +24,8 @@ public class BlackHole : MonoBehaviour
     {
         float elapsed = 0.0f;
         Vector3 originalPos = transform.localPosition;
+        Vector3 blackHolePos = transform.position;
+
         while (elapsed < shakeDuration)
         {
             float x = originalPos.x + Random.Range(-1f, 1f) * shakeMagnitude;
@@ -47,6 +49,6 @@ public class BlackHole : MonoBehaviour
         Destroy(gameObject);
 
         int randomScore = Random.Range(100, 1001);
-        scoreManager.AddPopupScore(randomScore);
+        scoreManager.AddPopupScore(randomScore, blackHolePos);
     }
 }
