@@ -40,7 +40,7 @@ public class Star : MonoBehaviour
         //Effect on Collision with Aura
         if (other.CompareTag("Aura") && !auraCooldown && other.gameObject.GetInstanceID() != gameObject.GetInstanceID())
         {
-            InstantiateSecondStar();
+            //InstantiateSecondStar();
         }
 
     }

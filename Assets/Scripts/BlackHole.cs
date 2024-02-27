@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BlackHole : MonoBehaviour
@@ -9,6 +10,8 @@ public class BlackHole : MonoBehaviour
     public float shakeMagnitude = 0.1f; // Magnitude of the shake
     public float shakeSpeed = 1.0f; // Speed of the shake
     public ParticleSystem destructionParticles; // Destruction particle system
+    public ScoreManager scoreManager;// Score Script
+
 
     private bool isDestroyed = false;
 
@@ -43,14 +46,19 @@ public class BlackHole : MonoBehaviour
 
         // Reset position
         transform.localPosition = originalPos;
-
         // Instantiate destruction particles immediately after shaking
         if (destructionParticles != null)
         {
             Instantiate(destructionParticles, transform.position, Quaternion.identity);
         }
-
         // Destroy the black hole
         Destroy(gameObject);
+
+        // Generate a random score between 100 and 1000
+        int randomScore = Random.Range(100, 1001);
+
+        // Add the random score to the score manager
+        scoreManager.AddScore(randomScore);
     }
+   
 }
