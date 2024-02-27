@@ -38,11 +38,6 @@ public class Star : MonoBehaviour
             hasCollided = true;
             DestroyStar();
         }
-        //Effect on Collision with Aura
-        if (other.CompareTag("Aura") && !auraCooldown && other.gameObject.GetInstanceID() != gameObject.GetInstanceID())
-        {
-            //InstantiateSecondStar();
-        }
 
     }
 
