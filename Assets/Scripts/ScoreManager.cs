@@ -20,7 +20,6 @@ public class ScoreManager : MonoBehaviour
     private Queue<int> popupScores = new Queue<int>();
     private bool isShowingPopup = false;
 
-    public ScoreStarGlow auraParticleSystemPrefab;
 
     private void Start()
     {
@@ -86,7 +85,6 @@ public class ScoreManager : MonoBehaviour
     {
         scoreText.text = totalScore.ToString();
         // Instantiate the aura particle system prefab when updating the score text
-        auraParticleSystemPrefab.InstantiateAuraParticleSystem();
     }
 
     void ShowPopupScore(int score)
