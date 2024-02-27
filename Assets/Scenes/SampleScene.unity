@@ -162,7 +162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 451, y: 300}
+  m_AnchoredPosition: {x: 460, y: 289}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &13677494
@@ -806,7 +806,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 570, y: 265}
+  m_AnchoredPosition: {x: 579, y: 254}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &482292132
@@ -853,19 +853,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 482292130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acc7246cac485a34bb496e3159def93a, type: 3}
+  m_Script: {fileID: 11500000, guid: 950e43db77c603347831d9b7cf437cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  popupScoreText: {fileID: 0}
-  popupScoreObject: {fileID: 0}
-  mainCamera: {fileID: 0}
-  popupDistance: 5
-  shakeDuration: 0.5
-  shakeMagnitude: 1
-  starParticles:
-  - {fileID: 4307054760394894922, guid: e0d692d95e6a05843a0e3216021d7f42, type: 3}
-  - {fileID: 4307054760394894922, guid: e0d692d95e6a05843a0e3216021d7f42, type: 3}
+  auraParticleSystemPrefab: {fileID: 6986154902055844388, guid: 8bdad2c9f9b6ae3428ef8de62a84e5c9, type: 3}
 --- !u!4 &544286423 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1227812916056488736, guid: 71e03a15fde63ec42930e889c437a32b, type: 3}
@@ -1503,11 +1494,11 @@ MonoBehaviour:
   scoreText: {fileID: 13677494}
   popupScoreText: {fileID: 1203527785}
   popupScoreObject: {fileID: 1203527782}
-  mainCamera: {fileID: 0}
-  popupDistance: 5
-  shakeDuration: 0.6
-  shakeMagnitude: 10
-  starParticles: []
+  mainCamera: {fileID: 963194227}
+  popupDistance: 0
+  shakeDuration: 1
+  shakeMagnitude: 15
+  auraParticleSystemPrefab: {fileID: 1882065015}
 --- !u!1 &1119885253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,7 +1534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 436, y: 269}
+  m_AnchoredPosition: {x: 445, y: 258}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1119885255
@@ -1677,6 +1668,7 @@ GameObject:
   - component: {fileID: 1203527783}
   - component: {fileID: 1203527786}
   - component: {fileID: 1203527785}
+  - component: {fileID: 1203527787}
   m_Layer: 5
   m_Name: PopUp
   m_TagString: Untagged
@@ -1700,7 +1692,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 537, y: 204}
+  m_AnchoredPosition: {x: 135, y: 47}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1203527785
@@ -1750,8 +1742,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 175
+  m_fontSizeBase: 175
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1786,7 +1778,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -109.18854, y: 0, z: 0, w: 0}
+  m_margin: {x: -231.35675, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1800,6 +1792,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203527782}
   m_CullTransparentMesh: 1
+--- !u!114 &1203527787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203527782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0.95084643, b: 0, a: 0.5}
+  m_EffectDistance: {x: 3, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1369489824
 GameObject:
   m_ObjectHideFlags: 0
@@ -2185,7 +2192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 307, y: 265}
+  m_AnchoredPosition: {x: 316, y: 254}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1882065013
@@ -2232,19 +2239,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1882065011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acc7246cac485a34bb496e3159def93a, type: 3}
+  m_Script: {fileID: 11500000, guid: 950e43db77c603347831d9b7cf437cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  popupScoreText: {fileID: 0}
-  popupScoreObject: {fileID: 0}
-  mainCamera: {fileID: 0}
-  popupDistance: 5
-  shakeDuration: 0.5
-  shakeMagnitude: 1
-  starParticles:
-  - {fileID: 4307054760394894922, guid: e0d692d95e6a05843a0e3216021d7f42, type: 3}
-  - {fileID: 4307054760394894922, guid: e0d692d95e6a05843a0e3216021d7f42, type: 3}
+  auraParticleSystemPrefab: {fileID: 6986154902055844388, guid: 8bdad2c9f9b6ae3428ef8de62a84e5c9, type: 3}
 --- !u!1001 &1928921995
 PrefabInstance:
   m_ObjectHideFlags: 0

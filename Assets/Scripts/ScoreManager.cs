@@ -20,6 +20,7 @@ public class ScoreManager : MonoBehaviour
     private Queue<int> popupScores = new Queue<int>();
     private bool isShowingPopup = false;
 
+    public ScoreStarGlow auraParticleSystemPrefab;
 
     private void Start()
     {
@@ -34,8 +35,7 @@ public class ScoreManager : MonoBehaviour
         if (!isShowingPopup && popupScores.Count > 0)
         {
             int score = popupScores.Dequeue();
-            totalScore += score; // Increment the total score
-            UpdateScoreText(); // Update the score text
+            totalScore += score; // Add the popup score to the total score
             ShowPopupScore(score);
         }
     }
@@ -68,14 +68,25 @@ public class ScoreManager : MonoBehaviour
 
     void ChangePopupScoreColorRandomly()
     {
-        Color randomColor = new Color(Random.value, Random.value, Random.value);
+        // Generate random hue value in the range [0, 1]
+        float randomHue = Random.value;
+
+        // Set saturation and value to high values to create neon colors
+        float saturation = Random.Range(0.8f, 1.0f); // Adjust saturation range as needed
+        float value = Random.Range(0.8f, 1.0f); // Adjust value range as needed
+
+        // Convert HSV color to RGB
+        Color randomColor = Color.HSVToRGB(randomHue, saturation, value);
+
+        // Set the popup score text color to the generated random color
         popupScoreText.color = randomColor;
     }
 
     void UpdateScoreText()
     {
         scoreText.text = totalScore.ToString();
-
+        // Instantiate the aura particle system prefab when updating the score text
+        auraParticleSystemPrefab.InstantiateAuraParticleSystem();
     }
 
     void ShowPopupScore(int score)
@@ -84,22 +95,36 @@ public class ScoreManager : MonoBehaviour
         StartCoroutine(ShakePopupScoreText());
         ChangePopupScoreColorRandomly();
         ShowPopupScoreObject();
+        UpdateScoreText(); // Update the total score text
     }
 
     void ShowPopupScoreObject()
     {
-        popupScoreObject.SetActive(true);
+        popupScoreText.gameObject.SetActive(true);
 
-        // Calculate the direction from the black hole to the camera
-        Vector3 direction = mainCamera.transform.position - popupScoreObject.transform.position;
-        direction.Normalize();
+        // Get the screen position of the black hole
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(BlackHolePosition());
 
-        // Set the position of the popup score text in the direction of the black hole
-        popupScoreObject.transform.position += direction * popupDistance;
+        // Set the position of the popup score text directly
+        popupScoreText.rectTransform.position = screenPos + new Vector3(0f, popupDistance, 0f);
     }
 
     void HidePopupScore()
     {
         popupScoreObject.SetActive(false);
+    }
+
+    Vector3 BlackHolePosition()
+    {
+        // Get the position of the black hole in world space
+        GameObject blackHole = GameObject.FindGameObjectWithTag("BlackHole");
+        if (blackHole != null)
+        {
+            return blackHole.transform.position;
+        }
+        else
+        {
+            return Vector3.zero;
+        }
     }
 }
