@@ -13,6 +13,7 @@ public class Star : MonoBehaviour
     public float changeInterval = 1.0f; // Interval between material changes
     //Particle System Effects
     public GameObject groundCollisionParticles; // Reference to the ground collision particle system prefab
+    public GameObject destructionParticles; // Reference to the destruction particle system prefab
     public GameObject secondStar; //Instantiate another star
     //Particle Second Star Cooldown
     private bool auraCooldown = false; // Flag to track cooldown for aura collision
@@ -74,6 +75,12 @@ public class Star : MonoBehaviour
     //Destroy function
     private void DestroyStar()
     {
+        // Instantiate destruction particles
+        if (destructionParticles != null)
+        {
+            Instantiate(destructionParticles, transform.position, Quaternion.identity);
+        }
+
         Destroy(gameObject);
     }
 

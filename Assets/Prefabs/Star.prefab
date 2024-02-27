@@ -19592,6 +19592,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 75d258245af4e574bb8a38b8dca19a98, type: 2}
   changeInterval: 1
   groundCollisionParticles: {fileID: 6986154902055844388, guid: 8bdad2c9f9b6ae3428ef8de62a84e5c9, type: 3}
+  destructionParticles: {fileID: 6040359417276249591, guid: e0d692d95e6a05843a0e3216021d7f42, type: 3}
   secondStar: {fileID: 2984428439699727923}
   auraCooldownDuration: 6
 --- !u!1 &4877973404989459390
