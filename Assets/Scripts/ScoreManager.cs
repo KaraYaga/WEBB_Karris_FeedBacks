@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,12 +12,14 @@ public class ScoreManager : MonoBehaviour
     public float popupDistance = 5f; // Distance from the camera
     public float shakeDuration = 0.5f;
     public float shakeMagnitude = 1.0f;
+    public AudioClip scoreIncreaseSound; // Sound effect for score increase
 
     private int totalScore = 0;
     private Vector3 originalScorePos;
     private Vector3 originalPopupScorePos;
+    private AudioSource audioSource; // Reference to the AudioSource component
 
-    private Queue<Tuple<int, Vector3>> popupScores = new Queue<Tuple<int, Vector3>>();
+    private Queue<ScorePopupData> popupScores = new Queue<ScorePopupData>(); // Define a queue to hold score and position data
     private bool isShowingPopup = false;
 
     private void Start()
@@ -27,15 +28,23 @@ public class ScoreManager : MonoBehaviour
         originalPopupScorePos = popupScoreText.transform.localPosition;
         UpdateScoreText();
         HidePopupScore(); // Hide the popup score text initially
+
+        // Get the AudioSource component attached to the ScoreManager GameObject
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            // If AudioSource component is not found, add one
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     private void Update()
     {
         if (!isShowingPopup && popupScores.Count > 0)
         {
-            var scoreTuple = popupScores.Dequeue();
-            int score = scoreTuple.Item1;
-            Vector3 blackHoleWorldPos = scoreTuple.Item2;
+            var scoreData = popupScores.Dequeue();
+            int score = scoreData.score;
+            Vector3 blackHoleWorldPos = scoreData.position;
             totalScore += score; // Add the popup score to the total score
             ShowPopupScore(score, blackHoleWorldPos);
         }
@@ -43,7 +52,7 @@ public class ScoreManager : MonoBehaviour
 
     public void AddPopupScore(int score, Vector3 blackHoleWorldPos)
     {
-        popupScores.Enqueue(new Tuple<int, Vector3>(score, blackHoleWorldPos));
+        popupScores.Enqueue(new ScorePopupData(score, blackHoleWorldPos));
     }
 
     IEnumerator ShakePopupScoreText()
@@ -86,7 +95,11 @@ public class ScoreManager : MonoBehaviour
     void UpdateScoreText()
     {
         scoreText.text = totalScore.ToString();
-        // Instantiate the aura particle system prefab when updating the score text
+        // Play the score increase sound effect
+        if (scoreIncreaseSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(scoreIncreaseSound);
+        }
     }
 
     void ShowPopupScore(int score, Vector3 blackHoleWorldPos)
@@ -125,6 +138,19 @@ public class ScoreManager : MonoBehaviour
         else
         {
             return Vector3.zero;
+        }
+    }
+
+    // Define a custom class to hold score and position data
+    private class ScorePopupData
+    {
+        public int score;
+        public Vector3 position;
+
+        public ScorePopupData(int score, Vector3 position)
+        {
+            this.score = score;
+            this.position = position;
         }
     }
 }

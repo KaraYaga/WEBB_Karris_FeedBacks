@@ -22,6 +22,21 @@ public class Throwing : MonoBehaviour
     private bool readyToThrow = true;
     private bool isDoubleShotActive = false;
 
+    private AudioSource audioSource; // Reference to the AudioSource component
+    public AudioClip throwSound; // Sound effect for throwing a star
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // Get the AudioSource component attached to the GameObject
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            // If AudioSource component is not found, add one
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
+
     // Update is called once per frame
     private void Update()
     {
@@ -33,6 +48,12 @@ public class Throwing : MonoBehaviour
 
     private void Throw()
     {
+        // Play the throw sound effect
+        if (throwSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(throwSound);
+        }
+
         // Determine the number of projectiles to throw based on the current state
         int projectilesToThrow = isDoubleShotActive ? numberOfProjectiles * 2 : numberOfProjectiles;
 
@@ -110,6 +131,8 @@ public class Throwing : MonoBehaviour
             doublesActivated.text = "Double Star Shot!";
             doublesActivated.gameObject.SetActive(true);
 
+            // Start coroutine to shake the popup
+            StartCoroutine(ShakePopupEffect(6, 3, 3));
             // Start coroutine to hide the popup after a delay
             StartCoroutine(HidePopupAfterDelay(2f)); // Hide the popup after 2 seconds (adjust as needed)
         }
@@ -117,6 +140,25 @@ public class Throwing : MonoBehaviour
         {
             Debug.LogError("doublesActivated is null!");
         }
+    }
+    // Coroutine to shake the popup text
+    private IEnumerator ShakePopupEffect(float duration, float magnitudeX, float magnitudeY)
+    {
+        Vector3 originalPos = doublesActivated.transform.localPosition;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float x = originalPos.x + Random.Range(-magnitudeX, magnitudeX);
+            float y = originalPos.y + Random.Range(-magnitudeY, magnitudeY);
+
+            doublesActivated.transform.localPosition = new Vector3(x, y, originalPos.z);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        doublesActivated.transform.localPosition = originalPos;
     }
 
 
