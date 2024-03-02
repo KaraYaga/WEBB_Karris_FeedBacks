@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class Star : MonoBehaviour
 {
-    //Collision Tracker
+    // Collision Tracker
     private bool hasCollided = false;
 
-    //Material Change
+    // Material Change
     private Renderer starRenderer; // Reference to the renderer component
     private Color startColor;
     public Material[] materials; // Array of materials for color cycling
     public float changeInterval = 1.0f; // Interval between material changes
 
-    //Particle System Effects
+    // Particle System Effects
     public GameObject groundCollisionParticles; // Reference to the ground collision particle system prefab
     public GameObject destructionParticles; // Reference to the destruction particle system prefab
-    public GameObject secondStar; //Instantiate another star
+    public GameObject secondStar; // Instantiate another star
 
-    //Particle Second Star Cooldown
+    // Particle Second Star Cooldown
     private bool auraCooldown = false; // Flag to track cooldown for aura collision
     public float auraCooldownDuration = 2.0f; // Duration of the cooldown period for aura collision
+
+    // Sound
+    private AudioClip destructionSound; // Sound to play when destroyed
+    private AudioSource audioSource; // Reference to the AudioSource component
 
     // Check for collision
     private void Start()
@@ -31,18 +35,19 @@ public class Star : MonoBehaviour
 
         // Start coroutine to change materials
         StartCoroutine(ChangeMaterials());
+
+        // Get the AudioSource component
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        
         // Destroy on Collision with black hole
         if (other.CompareTag("BlackHole"))
         {
             hasCollided = true;
             DestroyStar();
         }
-
     }
 
     // Cooldown for aura collision
@@ -64,9 +69,29 @@ public class Star : MonoBehaviour
             DestroyStar();
         }
     }
-    //Destroy function
+
+    // Destroy function
     private void DestroyStar()
     {
+        // Get the AudioSource component dynamically
+        AudioSource audioSource = GetComponent<AudioSource>();
+
+        // Log whether AudioSource component is found
+        if (audioSource == null)
+        {
+            Debug.Log("AudioSource component not found on the star GameObject.");
+        }
+        else
+        {
+            Debug.Log("AudioSource component found on the star GameObject.");
+        }
+
+        // Play destruction sound
+        if (destructionSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(destructionSound);
+        }
+
         // Instantiate destruction particles
         if (destructionParticles != null)
         {

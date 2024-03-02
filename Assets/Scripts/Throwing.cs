@@ -19,11 +19,12 @@ public class Throwing : MonoBehaviour
 
     [Header("Double Shot")]
     [SerializeField] private TMP_Text doublesActivated; // Reference to the TextMeshPro text component
+    public AudioClip[] throwSounds; // Array of sound effects for throwing a star
+    public AudioClip popupSound; // Sound effect for the double star popup
+    private AudioSource audioSource; // Reference to the AudioSource component
+
     private bool readyToThrow = true;
     private bool isDoubleShotActive = false;
-
-    private AudioSource audioSource; // Reference to the AudioSource component
-    public AudioClip throwSound; // Sound effect for throwing a star
 
     // Start is called before the first frame update
     void Start()
@@ -48,10 +49,11 @@ public class Throwing : MonoBehaviour
 
     private void Throw()
     {
-        // Play the throw sound effect
-        if (throwSound != null && audioSource != null)
+        // Play a random throw sound effect
+        if (throwSounds.Length > 0 && audioSource != null)
         {
-            audioSource.PlayOneShot(throwSound);
+            int randomIndex = Random.Range(0, throwSounds.Length);
+            audioSource.PlayOneShot(throwSounds[randomIndex]);
         }
 
         // Determine the number of projectiles to throw based on the current state
@@ -124,6 +126,12 @@ public class Throwing : MonoBehaviour
     {
         Debug.Log("Displaying popup...");
 
+        // Play the popup sound effect
+        if (popupSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(popupSound);
+        }
+
         // Check if the reference to doublesActivated is not null
         if (doublesActivated != null)
         {
@@ -141,6 +149,7 @@ public class Throwing : MonoBehaviour
             Debug.LogError("doublesActivated is null!");
         }
     }
+
     // Coroutine to shake the popup text
     private IEnumerator ShakePopupEffect(float duration, float magnitudeX, float magnitudeY)
     {
@@ -160,7 +169,6 @@ public class Throwing : MonoBehaviour
 
         doublesActivated.transform.localPosition = originalPos;
     }
-
 
     // Hide TMP Pro popup after a delay
     private IEnumerator HidePopupAfterDelay(float delay)

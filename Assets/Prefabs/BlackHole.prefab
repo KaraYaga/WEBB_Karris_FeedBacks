@@ -120,3 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28402de0ada08a24eae6797354c00525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeDuration: 2
+  shakeMagnitude: 0.1
+  shakeSpeed: 1
+  destructionParticles: {fileID: 0}
+  scoreManager: {fileID: 0}
+  explosionSound: {fileID: 8300000, guid: 52a3966c648adc44fa544450a9b3513c, type: 3}

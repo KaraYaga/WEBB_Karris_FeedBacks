@@ -4893,6 +4893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd449ea1c0a59942b7dfdb03760b607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  auraSound: {fileID: 8300000, guid: 67596dc19a8b86f42949a0b6ad9df95b, type: 3}
 --- !u!136 &7651570858897353631
 CapsuleCollider:
   m_ObjectHideFlags: 0

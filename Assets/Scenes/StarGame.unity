@@ -641,7 +641,15 @@ MonoBehaviour:
   doubleShotDuration: 4
   numberOfProjectiles: 1
   doublesActivated: {fileID: 459037445}
-  throwSound: {fileID: 0}
+  throwSounds:
+  - {fileID: 8300000, guid: 6e54775b51654094b929d6c479fddfb5, type: 3}
+  - {fileID: 8300000, guid: 2b63d473a46ed744b98e4d48a188626e, type: 3}
+  - {fileID: 8300000, guid: 4b0edeefbcc66f849b93800bb1999434, type: 3}
+  - {fileID: 8300000, guid: d509da4ffa94f194ea7ded3aa962d7b1, type: 3}
+  - {fileID: 8300000, guid: f57194e90bb6a9b4c8e499bc418fcf74, type: 3}
+  - {fileID: 8300000, guid: be2d3672325c8dc41bd6857f3070dcd6, type: 3}
+  - {fileID: 8300000, guid: 8085d7c9ee0ed9e49bc0fbbf30864091, type: 3}
+  popupSound: {fileID: 8300000, guid: 5441a6e3710c8c5409dbb81500bb8236, type: 3}
 --- !u!54 &180443665
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1676,7 +1684,7 @@ MonoBehaviour:
   popupDistance: 0
   shakeDuration: 1
   shakeMagnitude: 15
-  scoreIncreaseSound: {fileID: 0}
+  scoreIncreaseSound: {fileID: 8300000, guid: c8c32b131589d104bb0fd31545119500, type: 3}
 --- !u!1 &1119885253
 GameObject:
   m_ObjectHideFlags: 0
