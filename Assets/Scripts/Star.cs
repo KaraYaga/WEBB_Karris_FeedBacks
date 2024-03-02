@@ -6,15 +6,18 @@ public class Star : MonoBehaviour
 {
     //Collision Tracker
     private bool hasCollided = false;
+
     //Material Change
     private Renderer starRenderer; // Reference to the renderer component
     private Color startColor;
     public Material[] materials; // Array of materials for color cycling
     public float changeInterval = 1.0f; // Interval between material changes
+
     //Particle System Effects
     public GameObject groundCollisionParticles; // Reference to the ground collision particle system prefab
     public GameObject destructionParticles; // Reference to the destruction particle system prefab
     public GameObject secondStar; //Instantiate another star
+
     //Particle Second Star Cooldown
     private bool auraCooldown = false; // Flag to track cooldown for aura collision
     public float auraCooldownDuration = 2.0f; // Duration of the cooldown period for aura collision
@@ -32,6 +35,7 @@ public class Star : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         // Destroy on Collision with black hole
         if (other.CompareTag("BlackHole"))
         {
@@ -39,13 +43,6 @@ public class Star : MonoBehaviour
             DestroyStar();
         }
 
-    }
-
-    // Instantiate the second star and start cooldown
-    private void InstantiateSecondStar()
-    {
-        Instantiate(secondStar, transform.position, Quaternion.identity);
-        StartCoroutine(AuraCooldown());
     }
 
     // Cooldown for aura collision

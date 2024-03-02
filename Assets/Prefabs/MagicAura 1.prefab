@@ -4893,11 +4893,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd449ea1c0a59942b7dfdb03760b607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 7245123193674359278}
-  attackPoint: {fileID: 661324536077885347}
-  objectToThrow: {fileID: 2984428439699727923, guid: 93a8e338ddbf3fd48ad2de4592bad7ae, type: 3}
-  throwForce: 0
-  throwUpwardForce: 0
 --- !u!136 &7651570858897353631
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Movement : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Movement : MonoBehaviour
     private Rigidbody rb;
     private Camera playerCamera;
     private Vector2 rotation = Vector2.zero;
+
 
     //START
     void Start()
