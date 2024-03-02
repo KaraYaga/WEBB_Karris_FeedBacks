@@ -649,7 +649,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f57194e90bb6a9b4c8e499bc418fcf74, type: 3}
   - {fileID: 8300000, guid: be2d3672325c8dc41bd6857f3070dcd6, type: 3}
   - {fileID: 8300000, guid: 8085d7c9ee0ed9e49bc0fbbf30864091, type: 3}
-  popupSound: {fileID: 8300000, guid: 5441a6e3710c8c5409dbb81500bb8236, type: 3}
+  popupSound: {fileID: 8300000, guid: 7fe7961b1ebf2644299b687f60d46530, type: 3}
 --- !u!54 &180443665
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -954,7 +954,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5bf6dc6f93e470946b03c823a3d8e9c3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.894
   m_Pitch: 1
   Loop: 1
   Mute: 0
