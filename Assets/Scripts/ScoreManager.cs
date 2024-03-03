@@ -5,9 +5,12 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
+    //SCORE AND POPUP
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI popupScoreText;
     public GameObject popupScoreObject; // Reference to the GameObject containing popupScoreText
+
+    //POPUP SHAKE
     public Camera mainCamera; // Reference to the main camera
     public float popupDistance = 5f; // Distance from the camera
     public float shakeDuration = 0.5f;
@@ -15,6 +18,7 @@ public class ScoreManager : MonoBehaviour
     public float pulseDuration = 1.0f; // Duration of one pulse cycle
     public float pulseMagnitude = 0.1f; // Magnitude of pulse effect
 
+    //AUDIO FOR SCORE INCREASE
     public AudioClip scoreIncreaseSound; // Sound effect for score increase
 
     private int totalScore = 0;
@@ -22,9 +26,14 @@ public class ScoreManager : MonoBehaviour
     private Vector3 originalPopupScorePos;
     private AudioSource audioSource; // Reference to the AudioSource component
 
+    //DOUBLES POPUP
     private Queue<ScorePopupData> popupScores = new Queue<ScorePopupData>(); // Define a queue to hold score and position data
     private bool isShowingPopup = false;
 
+    //SCORE BETWEEN SCENES
+    public static int finalScore;
+
+    //START SET TEXTS
     private void Start()
     {
         originalScorePos = scoreText.transform.localPosition;
@@ -44,6 +53,7 @@ public class ScoreManager : MonoBehaviour
         StartCoroutine(PulseScoreText());
     }
 
+    //SHOW POPUP SCORE
     private void Update()
     {
         if (!isShowingPopup && popupScores.Count > 0)
@@ -55,12 +65,27 @@ public class ScoreManager : MonoBehaviour
             ShowPopupScore(score, blackHoleWorldPos);
         }
     }
-
+    //UPDATE MAIN SCORE
+    void UpdateScoreText()
+    {
+        scoreText.text = totalScore.ToString();
+        // Play the score increase sound effect
+        if (scoreIncreaseSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(scoreIncreaseSound);
+        }
+    }
+    //FINAL SCORE
+    public int GetTotalScore()
+    {
+        return totalScore;
+    }
+    //ADDING POPUP
     public void AddPopupScore(int score, Vector3 blackHoleWorldPos)
     {
         popupScores.Enqueue(new ScorePopupData(score, blackHoleWorldPos));
     }
-
+    //SHAKE POPUP
     IEnumerator ShakePopupScoreText()
     {
         isShowingPopup = true;
@@ -81,7 +106,7 @@ public class ScoreManager : MonoBehaviour
         HidePopupScore();
         isShowingPopup = false;
     }
-
+    //CHANGE POPUP COLOR
     void ChangePopupScoreColorRandomly()
     {
         // Generate random hue value in the range [0, 1]
@@ -97,17 +122,7 @@ public class ScoreManager : MonoBehaviour
         // Set the popup score text color to the generated random color
         popupScoreText.color = randomColor;
     }
-
-    void UpdateScoreText()
-    {
-        scoreText.text = totalScore.ToString();
-        // Play the score increase sound effect
-        if (scoreIncreaseSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(scoreIncreaseSound);
-        }
-    }
-
+    //SHOW POPUP
     void ShowPopupScore(int score, Vector3 blackHoleWorldPos)
     {
         popupScoreText.text = score.ToString(); // Set the popup score text to the generated score
@@ -116,7 +131,6 @@ public class ScoreManager : MonoBehaviour
         ShowPopupScoreObject(blackHoleWorldPos);
         UpdateScoreText(); // Update the total score text
     }
-
     void ShowPopupScoreObject(Vector3 blackHoleWorldPos)
     {
         popupScoreText.gameObject.SetActive(true);
@@ -127,12 +141,12 @@ public class ScoreManager : MonoBehaviour
         // Set the position of the popup score text directly
         popupScoreText.rectTransform.position = screenPos + new Vector3(0f, popupDistance, 0f);
     }
-
+    //HIDE POPUP
     void HidePopupScore()
     {
         popupScoreObject.SetActive(false);
     }
-
+    //FIND BLACKHOLE POSITION
     Vector3 BlackHolePosition()
     {
         // Get the position of the black hole in world space
@@ -146,8 +160,7 @@ public class ScoreManager : MonoBehaviour
             return Vector3.zero;
         }
     }
-
-    // Define a custom class to hold score and position data
+    //SCORE POPUP DATA
     private class ScorePopupData
     {
         public int score;

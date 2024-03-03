@@ -19470,7 +19470,7 @@ GameObject:
   - component: {fileID: 80718975480916263}
   - component: {fileID: 3685720818303712989}
   - component: {fileID: 5686790289114163271}
-  - component: {fileID: 7647946075216766623}
+  - component: {fileID: -1775199223780959952}
   m_Layer: 9
   m_Name: Star
   m_TagString: Star
@@ -19596,7 +19596,8 @@ MonoBehaviour:
   destructionParticles: {fileID: 6040359417276249591, guid: e0d692d95e6a05843a0e3216021d7f42, type: 3}
   secondStar: {fileID: 2984428439699727923}
   auraCooldownDuration: 6
---- !u!82 &7647946075216766623
+  destructionSound: {fileID: 8300000, guid: f765604f25405584b8cd1625cc66d9a5, type: 3}
+--- !u!82 &-1775199223780959952
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19614,7 +19615,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 100
+  Priority: 128
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -19652,7 +19653,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

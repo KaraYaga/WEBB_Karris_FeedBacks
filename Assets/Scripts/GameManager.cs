@@ -1,43 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject finalScoreText;
     public AudioClip winSound;
-    public AudioSource backgroundMusic;
+    public string nextSceneName; // Name of the scene to load after winning
+    public float countdownDuration = 30f; // Duration of the countdown timer
+    public TextMeshProUGUI countdownText; // Text to display the countdown timer
+
+    private float countdownTimer; // Timer for the countdown
 
     private void Start()
     {
-        // Subscribe to the event indicating all black holes are destroyed
-        BlackHole.OnBlackHoleDestroyed += HandleAllBlackHolesDestroyed;
+        // Start the countdown timer
+        countdownTimer = countdownDuration;
+        UpdateCountdownText();
     }
 
-    private void HandleAllBlackHolesDestroyed()
+    private void Update()
     {
-        // Display final score text
-        finalScoreText.SetActive(true);
+        // Update the countdown timer
+        countdownTimer -= Time.deltaTime;
+        UpdateCountdownText();
 
-        // Pause the game
-        Time.timeScale = 0f;
-
-        // Pause the music
-        if (backgroundMusic != null)
+        // Check if the countdown has reached zero
+        if (countdownTimer <= 0)
         {
-            backgroundMusic.Pause();
-        }
-
-        // Play win sound
-        if (winSound != null)
-        {
-            AudioSource.PlayClipAtPoint(winSound, Camera.main.transform.position);
+            countdownTimer = 0; // Ensure the timer doesn't go negative
+            LoadGameOverScene();
         }
     }
 
-    private void OnDestroy()
+    private void LoadGameOverScene()
     {
-        // Unsubscribe from the event
-        BlackHole.OnBlackHoleDestroyed -= HandleAllBlackHolesDestroyed;
+        // Save the final score before loading the GameOver scene
+        ScoreManager.finalScore = FindObjectOfType<ScoreManager>().GetTotalScore();
+        Debug.Log(ScoreManager.finalScore);
+
+        // Load the GameOver scene
+        SceneManager.LoadScene("GameOver");
+    }
+
+    private void UpdateCountdownText()
+    {
+        // Update the countdown text
+        int seconds = Mathf.CeilToInt(countdownTimer);
+        countdownText.text = "Time Left: " + seconds.ToString();
     }
 }

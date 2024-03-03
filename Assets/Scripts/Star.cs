@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class Star : MonoBehaviour
@@ -22,10 +23,6 @@ public class Star : MonoBehaviour
     private bool auraCooldown = false; // Flag to track cooldown for aura collision
     public float auraCooldownDuration = 2.0f; // Duration of the cooldown period for aura collision
 
-    // Sound
-    private AudioClip destructionSound; // Sound to play when destroyed
-    private AudioSource audioSource; // Reference to the AudioSource component
-
     // Check for collision
     private void Start()
     {
@@ -35,9 +32,6 @@ public class Star : MonoBehaviour
 
         // Start coroutine to change materials
         StartCoroutine(ChangeMaterials());
-
-        // Get the AudioSource component
-        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -76,29 +70,16 @@ public class Star : MonoBehaviour
         // Get the AudioSource component dynamically
         AudioSource audioSource = GetComponent<AudioSource>();
 
-        // Log whether AudioSource component is found
-        if (audioSource == null)
-        {
-            Debug.Log("AudioSource component not found on the star GameObject.");
-        }
-        else
-        {
-            Debug.Log("AudioSource component found on the star GameObject.");
-        }
-
-        // Play destruction sound
-        if (destructionSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(destructionSound);
-        }
-
+        audioSource.Play();
+        Debug.Log("Sound Played");
+      
         // Instantiate destruction particles
         if (destructionParticles != null)
         {
             Instantiate(destructionParticles, transform.position, Quaternion.identity);
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     // Coroutine to change materials
