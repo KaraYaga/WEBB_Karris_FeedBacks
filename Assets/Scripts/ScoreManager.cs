@@ -12,6 +12,9 @@ public class ScoreManager : MonoBehaviour
     public float popupDistance = 5f; // Distance from the camera
     public float shakeDuration = 0.5f;
     public float shakeMagnitude = 1.0f;
+    public float pulseDuration = 1.0f; // Duration of one pulse cycle
+    public float pulseMagnitude = 0.1f; // Magnitude of pulse effect
+
     public AudioClip scoreIncreaseSound; // Sound effect for score increase
 
     private int totalScore = 0;
@@ -36,6 +39,9 @@ public class ScoreManager : MonoBehaviour
             // If AudioSource component is not found, add one
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+
+        // Start pulsing the score text
+        StartCoroutine(PulseScoreText());
     }
 
     private void Update()
@@ -151,6 +157,21 @@ public class ScoreManager : MonoBehaviour
         {
             this.score = score;
             this.position = position;
+        }
+    }
+
+    IEnumerator PulseScoreText()
+    {
+        Vector3 originalScale = scoreText.transform.localScale;
+        float timer = 0f;
+
+        while (true)
+        {
+            timer += Time.deltaTime;
+            float pulse = Mathf.Sin(timer / pulseDuration * Mathf.PI * 2f) * pulseMagnitude;
+            scoreText.transform.localScale = originalScale + new Vector3(pulse, pulse, 0f);
+
+            yield return null;
         }
     }
 }

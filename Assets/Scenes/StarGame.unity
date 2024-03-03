@@ -162,7 +162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 551.308, y: -299.6245}
+  m_AnchoredPosition: {x: 558.1, y: -299.6245}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &13677494
@@ -185,7 +185,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 00000
+  m_text: '000
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -1684,6 +1686,8 @@ MonoBehaviour:
   popupDistance: 0
   shakeDuration: 1
   shakeMagnitude: 15
+  pulseDuration: 2
+  pulseMagnitude: 0.01
   scoreIncreaseSound: {fileID: 8300000, guid: c8c32b131589d104bb0fd31545119500, type: 3}
 --- !u!1 &1119885253
 GameObject:

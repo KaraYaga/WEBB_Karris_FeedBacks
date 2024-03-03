@@ -8,7 +8,7 @@ public class Throwing : MonoBehaviour
     public Transform cam;
     public Transform attackPoint;
     public GameObject objectToThrow;
-    public ParticleSystem auraParticleSystem; // Reference to the aura particle system
+    private ParticleSystem auraParticleSystem; // Reference to the aura particle system
 
     [Header("Throwing")]
     public KeyCode throwkey = KeyCode.Mouse0;
@@ -142,7 +142,7 @@ public class Throwing : MonoBehaviour
             // Start coroutine to shake the popup
             StartCoroutine(ShakePopupEffect(6, 3, 3));
             // Start coroutine to hide the popup after a delay
-            StartCoroutine(HidePopupAfterDelay(2f)); // Hide the popup after 2 seconds (adjust as needed)
+            StartCoroutine(HidePopupAfterDelay(4f)); // Hide the popup after 2 seconds (adjust as needed)
         }
         else
         {

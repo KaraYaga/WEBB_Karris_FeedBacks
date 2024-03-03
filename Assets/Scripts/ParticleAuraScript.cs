@@ -20,6 +20,8 @@ public class ParticleAuraScript : MonoBehaviour
         if (auraSound != null)
         {
             audioSource.clip = auraSound;
+            // Set the volume to 60%
+            audioSource.volume = 0.4f;
             // Play the sound on a loop
             audioSource.loop = true;
             audioSource.Play();
