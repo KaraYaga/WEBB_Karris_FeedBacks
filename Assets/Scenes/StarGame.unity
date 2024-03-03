@@ -369,6 +369,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &19374523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 19374525}
+  - component: {fileID: 19374524}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &19374524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19374523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183259c1c4a8ecc45a14d10085401ab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  finalScoreText: {fileID: 0}
+  winSound: {fileID: 8300000, guid: 72094b30a6fef3547bb4139d7139e7ab, type: 3}
+  backgroundMusic: {fileID: 0}
+--- !u!4 &19374525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19374523}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1048.3124, y: 235.08447, z: 836.26465}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &32912370
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +683,6 @@ MonoBehaviour:
   cam: {fileID: 963194228}
   attackPoint: {fileID: 837322551}
   objectToThrow: {fileID: 2984428439699727923, guid: 93a8e338ddbf3fd48ad2de4592bad7ae, type: 3}
-  auraParticleSystem: {fileID: 0}
   throwkey: 323
   throwForce: 80
   throwUpwardForce: 5
@@ -2984,6 +3030,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 705507995}
   - {fileID: 1369489828}
+  - {fileID: 19374525}
   - {fileID: 180443663}
   - {fileID: 32912371}
   - {fileID: 1509879009}

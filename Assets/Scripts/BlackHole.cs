@@ -10,6 +10,9 @@ public class BlackHole : MonoBehaviour
     public ScoreManager scoreManager;
     public AudioClip explosionSound; // Sound effect for black hole explosion
 
+    public delegate void BlackHoleDestroyed();
+    public static event BlackHoleDestroyed OnBlackHoleDestroyed;
+
     private bool isDestroyed = false;
     private AudioSource audioSource; // Reference to the AudioSource component
 
@@ -69,5 +72,15 @@ public class BlackHole : MonoBehaviour
 
         int randomScore = Random.Range(100, 1001);
         scoreManager.AddPopupScore(randomScore, blackHolePos);
+
+        // Check if all black holes are destroyed
+        if (GameObject.FindGameObjectsWithTag("BlackHole").Length == 0)
+        {
+            // Invoke event indicating all black holes are destroyed
+            if (OnBlackHoleDestroyed != null)
+            {
+                OnBlackHoleDestroyed();
+            }
+        }
     }
 }
